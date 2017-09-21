@@ -1,10 +1,9 @@
 package com.my_spring.controller;
 
 import com.my_spring.entity.User;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.my_spring.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,26 +12,32 @@ import java.util.List;
 @RequestMapping(value = "/users")
 public class UserController {
 
-    @GetMapping
-    public List<User> getUsers(){
-        List<User> list = new ArrayList<>();
+    private UserService userService;
 
-        User user = new User();
-        user.setUserName("hello");
-        list.add(user);
-
-        User user2 = new User();
-        user2.setUserName("hello");
-        list.add(user2);
-
-        return list;
+    @Autowired
+    private void setUserService(UserService userService){
+        this.userService = userService;
     }
 
-    @GetMapping(value = "/{name}")
-    public User getUserByName(@PathVariable("name") String name){
+    @GetMapping(value = "/getUser")
+    public User getUser(){
+        return userService.getUserInfo();
+    }
 
-        User user = new User();
-        user.setUserName("hello world");
-        return user;
+    @GetMapping(value = "/getUserById/{id}")
+    public User getUserById(@PathVariable(value = "id") int id){
+        return userService.getUserById(id);
+    }
+
+    @PostMapping(value = "/addUser")
+    public String addUser(User user){
+        userService.insertUser(user);
+        return "true";
+    }
+
+    @GetMapping(value = "/delUser")
+    public String delUser(@RequestParam(value = "id") int id){
+        userService.delUserById(id);
+        return "true";
     }
 }
