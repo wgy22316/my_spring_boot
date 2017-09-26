@@ -1,6 +1,9 @@
 package com.my_spring.mapper;
 
 import com.my_spring.entity.User;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Component;
+
 
 public interface UserMapper {
 
@@ -20,4 +23,11 @@ public interface UserMapper {
      * @param id
      */
     public void delUserById(int id);
+
+    /**
+     * 根据id查询用户
+     * @param id
+     * @return
+     */
+    public User getUserById2(@Param("id") int id);
 }

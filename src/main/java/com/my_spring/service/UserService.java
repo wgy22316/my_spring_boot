@@ -27,4 +27,8 @@ public class UserService {
     public void delUserById(int id){
         userMapper.delUserById(id);
     }
+
+    public User getUserById2(int id){
+        userMapper.getUserById2(id);
+    }
 }

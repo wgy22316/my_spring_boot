@@ -19,7 +19,7 @@
         VALUE (#{name},#{age},#{password})
     </insert>
 
-    <delete id="delUserById" parameterType="id">
+    <delete id="delUserById" parameterType="int">
         DELETE FROM user
         WHERE id = #{id}
     </delete>
